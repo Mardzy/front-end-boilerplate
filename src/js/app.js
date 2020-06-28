@@ -28,6 +28,7 @@ const name = '';
 const config = { params: { attribute, name } };
 
 const localStorageName = 'star-wars-characters';
+
 /**
  * Sends data to local storage
  * @param data
