@@ -1,9 +1,11 @@
 import 'regenerator-runtime/runtime';
 
+import 'bootstrap';
 import '../scss/app.scss';
 
 const { GetRequest } = require('./data/requests');
 const { handleError } = require('./error');
+const { LoadGallery } = require('./components/gallery');
 
 const proxyServerAddress = 'http://localhost:3007';
 
@@ -34,7 +36,7 @@ const localStorageName = 'star-wars-characters';
  * @param data
  */
 const populateStorage = (data) => {
-  localStorage.setItem(localStorageName, JSON.stringify(data));
+  return  localStorage.setItem(localStorageName, JSON.stringify(data));
 };
 
 /**
@@ -44,8 +46,8 @@ const populateStorage = (data) => {
  */
 const init = async (url, cfg) => {
   const response = await GetRequest(url, cfg);
-  console.log('init response: ', response);
   populateStorage(response);
+  LoadGallery(response);
   return response;
 };
 
@@ -57,6 +59,4 @@ init(proxyServerAddress, config)
  *
  * @param key
  */
-const fetchLocalStorage = (key) => {
-  return localStorage.getItem(key);
-};
+export const fetchLocalStorage = (key) => localStorage.getItem(key);

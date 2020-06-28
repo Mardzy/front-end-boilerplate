@@ -1,4 +1,4 @@
-/* By Athlon Front-End Team */
+
 
 /* Core variables */
 @import 'base/vars';
@@ -15,9 +15,8 @@
 /* Mixins, helpers and functions */
 @import 'base/mixins';
 
-/* Vendor */
-
 /* Components */
+@import "components/gallery";
 
 /* Browser specific styles */
 @import 'dirty/hacks';
@@ -25,23 +24,19 @@
 /* Demo styles */
 
 body {
-  background: url("./src/images/content/stars.jpg");
+  background: black url("../images/content/stars.jpg");
+  background-size: cover;
   color: $foreground-color;
   font-family: 'DINP-R', arial, serif;
 }
 
 header {
-  font-size: 2em;
   margin: 20px;
-  color: $caption-color;
-  text-align: center;
-  background: $foreground-color url('../images/design/heading.png') center 20px no-repeat;
+  background: url("../images/content/header.jpg") center no-repeat;
   padding: 60px 30px 30px;
-  background-size: 160px;
 }
 
 main {
-  color: $foreground-color;
   text-align: center;
   padding: 10px;
 }
