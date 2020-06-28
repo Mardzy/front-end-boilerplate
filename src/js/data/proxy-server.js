@@ -5,6 +5,22 @@ const { GetData } = require('./request-actions');
 const app = express();
 const port = 3007;
 
+const { handleError } = require('../error');
+
+const allCharacters = GetData('people')
+  .then((res) => {
+    console.log('all characters: ', res);
+  })
+  .catch((err) => handleError(err, 'All Characters Error: '));
+
+const getCharacterName = () => '';
+
+const getCharactersFromSamePlanet = () => '';
+
+const getCharacterImages = () => '';
+
+const addImagesToExistingData = () => '';
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   next();
@@ -12,12 +28,16 @@ app.use((req, res, next) => {
 
 app.get('/', async (req, res) => {
   const { attribute, name } = req.query;
-  const data = await GetData(attribute, name)
+  let data = null;
+  switch (attribute) {
+    case 'people':
+      data = allCharacters;
+  }
+
+  data = await GetData(attribute, name)
     .then((response) => response)
-    .catch((err) => {
-      console.log('Proxy error: ', err);
-      throw err;
-    });
+    .catch((err) => handleError(err, 'Proxy Error: '));
+
   res.send(data);
 });
 
