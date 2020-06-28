@@ -6,7 +6,7 @@ const GetRequest = (url, config) => (axios
   .get(url, config)
   .then((response) => {
     const { data } = response;
-    console.log('GET data response: ', config, data);
+    // console.log('GET data response: ', config, response);
     return data;
   })
   .catch((err) => handleError(err, 'Get Request Error: '))

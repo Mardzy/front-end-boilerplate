@@ -3,10 +3,11 @@ import 'regenerator-runtime/runtime';
 import '../scss/app.scss';
 
 const { GetRequest } = require('./data/requests');
+const { handleError } = require('./error');
 
 const proxyServerAddress = 'http://localhost:3007';
 
-const localStorage = window.localStorage;
+const { localStorage } = window;
 /*
 Attributes:
 films string -- The URL root for Film resources
@@ -25,16 +26,14 @@ const attribute = 'people';
 const name = '';
 
 const config = { params: { attribute, name } };
+
+const localStorageName = 'star-wars-characters';
 /**
  * Sends data to local storage
  * @param data
  */
 const populateStorage = (data) => {
-  localStorage.setItem('data', JSON.stringify(data));
-};
-
-const fetchLocalStorage = (key) => {
-  localStorage.getItem(key);
+  localStorage.setItem(localStorageName, JSON.stringify(data));
 };
 
 /**
@@ -46,8 +45,17 @@ const init = async (url, cfg) => {
   const response = await GetRequest(url, cfg);
   console.log('init response: ', response);
   populateStorage(response);
+  return response;
 };
 
-init(proxyServerAddress, config);
-const LocalStorage = fetchLocalStorage('data');
-console.log('local storage: ', LocalStorage);
+init(proxyServerAddress, config)
+  .then((r) => r)
+  .catch((err) => handleError(err, 'Init Error: '));
+
+/**
+ *
+ * @param key
+ */
+const fetchLocalStorage = (key) => {
+  return localStorage.getItem(key);
+};

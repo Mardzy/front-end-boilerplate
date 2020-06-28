@@ -1,16 +1,29 @@
+
 const express = require('express');
 
-const { GetData } = require('./request-actions');
+const { GetAttribute, GetAttrWParams } = require('./request-actions');
+const { GetRequest } = require('./requests');
+const { handleError } = require('../error');
 
 const app = express();
 const port = 3007;
 
-const { handleError } = require('../error');
+const getCharactersFromNextPages = async ({ count, results }) => {
+  const allCharacters = results.map((i) => i);
+  const totalPages = Math.ceil(count / 10);
+  console.log('total pages', totalPages);
+  for (let i = 2; i <= totalPages; i++) {
+    // eslint-disable-next-line no-await-in-loop
+    const nextCharacters = await GetAttrWParams('people', { page: i })
+      .then((res) => res.results)
+      .catch((err) => handleError(err, 'Get Next Characters Error:'));
+    nextCharacters.forEach((character) => allCharacters.push(character));
+  }
+  return allCharacters;
+};
 
-const allCharacters = GetData('people')
-  .then((res) => {
-    console.log('all characters: ', res);
-  })
+const getAllCharacters = async (attribute) => GetAttribute(attribute)
+  .then(getCharactersFromNextPages)
   .catch((err) => handleError(err, 'All Characters Error: '));
 
 const getCharacterName = () => '';
@@ -27,16 +40,14 @@ app.use((req, res, next) => {
 });
 
 app.get('/', async (req, res) => {
-  const { attribute, name } = req.query;
-  let data = null;
-  switch (attribute) {
-    case 'people':
-      data = allCharacters;
-  }
+  const { attribute, params } = req.query;
 
-  data = await GetData(attribute, name)
+  const data = await getAllCharacters(attribute);
+  /*
+  const data = await GetAttribute(attribute, name)
     .then((response) => response)
     .catch((err) => handleError(err, 'Proxy Error: '));
+    */
 
   res.send(data);
 });
