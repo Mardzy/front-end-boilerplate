@@ -21,7 +21,6 @@
 /* Browser specific styles */
 @import 'dirty/hacks';
 
-/* Demo styles */
 
 body {
   background: black url("../images/content/stars.jpg");
@@ -31,14 +30,13 @@ body {
 }
 
 header {
-  margin: 20px;
+  margin: 4em;
   background: url("../images/content/header.jpg") center no-repeat;
   padding: 60px 30px 30px;
 }
 
 main {
-  text-align: center;
-  padding: 10px;
+  padding-top: 2em;
 }
 
 a {

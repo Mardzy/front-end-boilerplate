@@ -100,12 +100,15 @@ const config = function(env, args) {
         notify: true,
         reloadDelay: 0,
       }),
+      // new HtmlWebpackPlugin({
+      //   filename: 'character.html',
+      //   template: path.resolve(__dirname, 'src', 'html', 'character.html'),
+      // }),
       new HtmlWebpackPlugin({
         inject: true,
         hash: false,
         filename: 'index.html',
         template: path.resolve(__dirname, 'src', 'index.html'),
-        favicon: path.resolve(__dirname, 'src', 'images', 'favicon.ico'),
       }),
       new MiniCssExtractPlugin({
         filename: 'css/[name].css',

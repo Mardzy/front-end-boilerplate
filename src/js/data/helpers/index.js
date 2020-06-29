@@ -1,5 +1,5 @@
 const { handleError } = require('../../error');
-const { GetAttribute, GetAttrWParams, GetPlanetResidents, GetPersonsName } = require('../request-actions');
+const { GetAttribute, GetAttrWParams, GetPlanetResidents } = require('../request-actions');
 
 const AddImagesToExistingData = (promise) => {
   const primaryData = promise[0];
@@ -22,7 +22,7 @@ const GetAllCharacters = async (attribute) => GetAttribute(attribute)
 
 const AddResidentsFromHomeplanet = async (characters) => {
   const newCharacters = characters;
-  console.log('here');
+
   for (let i = 0; i < characters.length; i++) {
     const url = await GetPlanetResidents(characters[i].homeworld);
     for (let j = 0; j < url.length; j++) {
