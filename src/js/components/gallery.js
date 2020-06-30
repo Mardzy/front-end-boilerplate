@@ -3,14 +3,38 @@ import { backupImage, getElementByClass } from './helpers';
 const { localStorage } = window;
 
 let characters = [];
+let searchValue = '';
 
 export const LoadGallery = (data) => {
-  characters = data;
-  return characters;
+  console.log(data.length, 'Characters found');
+  return data;
 };
 
-const getCharacters = () => JSON.parse(localStorage.getItem('star-wars-characters'));
+/**
+ * Handle search bar submit
+ * @param event
+ */
+const searchBar = getElementByClass('.search-bar');
+const handleSubmit = (event) => {
+  event.preventDefault();
+  searchValue = searchBar.elements.search.value;
+};
+searchBar.addEventListener('submit', handleSubmit);
 
+console.log('characters length', characters.length, searchValue);
+/**
+ * Fetch Characters from local storage
+ * @returns {any}
+ */
+const getCharacters = JSON.parse(localStorage.getItem('star-wars-characters'));
+
+const filterCharacters = (search) => getCharacters.filter((character) => (character.name === search));
+
+/**
+ * Send character to local storage
+ * @param name
+ * @returns {*[]}
+ */
 const sendCharacterToLocalStorage = (name) => characters.filter((char) => {
   const startCaseName = name.includes('_') ? name.replace('_', ' ') : name;
   if (char.name === startCaseName) {
@@ -19,13 +43,18 @@ const sendCharacterToLocalStorage = (name) => characters.filter((char) => {
 });
 
 const characterGallery = getElementByClass('.gallery__row');
+console.log('searchValue', searchValue);
+characters = searchValue.length > 1 ? filterCharacters(searchValue) : getCharacters;
 
-characters = getCharacters();
-
+/**
+ * Make certain names are all in original format
+ * @param name
+ * @returns {*}
+ */
 const normalizeName = (name) => (name.includes(' ') ? name.replace(/ /g, '_') : name);
 
 /**
- *
+ * Create gallery items
  * @type {boolean|string[]}
  */
 const characterGalleryItems = !!characters && characters.map(({

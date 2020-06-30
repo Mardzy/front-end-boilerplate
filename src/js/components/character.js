@@ -18,9 +18,12 @@ character.push(getCharacterFromLocalStorage);
 
 const characterContainer = getElementByClass('.character');
 
+/**
+ * Fetch residents' names
+ * @param residents
+ * @returns {Promise<unknown[]>}
+ */
 const getResidentsNames = async (residents) => {
-  // const planetInfo = { name: '', residents: [{ name: '', url: '' }] };
-
   const promiseAll = await Promise.all(residents
     .map(async (resident) => {
       const charName = await GetRequest(resident, {})
@@ -32,6 +35,11 @@ const getResidentsNames = async (residents) => {
   return promiseAll;
 };
 
+/**
+ * Fetch Planet Info
+ * @param url
+ * @returns {Promise<{planetName: *, residents: TAll[]}>}
+ */
 const getPlanetInfo = async (url) => {
   const planet = await GetRequest(url, {});
   const residents = await getResidentsNames(planet.residents);
@@ -40,7 +48,7 @@ const getPlanetInfo = async (url) => {
 };
 
 /**
- *
+ * Create Card for each character
  * @type {boolean|unknown[]}
  */
 const characterCard = !!character && character.map(({
@@ -95,7 +103,7 @@ if (characterContainer) {
 
 const residentListItems = (residents) => residents.map(({ name }) => `<li class="list-group-item">${name}</li>`);
 
-const residentList = ({ planetName, residents }) => `<ul class="list-group modal-content">${residentListItems(residents)}</ul>`;
+const residentList = ({ residents }) => `<ul class="list-group modal-content">${residentListItems(residents)}</ul>`;
 
 const addListToModal = (planet) => {
   const modal = getElementByClass('.modal-body');

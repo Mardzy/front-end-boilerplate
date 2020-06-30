@@ -15,6 +15,12 @@
         margin-top: 20px;
     }
 */
+.search-bar, .search-bar__input{
+  font-size: 1.5em;
+  .btn{
+    font-size: inherit;
+  }
+}
 
 .card {
   background: none;
