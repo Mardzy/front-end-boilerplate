@@ -33,10 +33,15 @@
     color: #333333;
     border: none;
     font-size: 2em;
+    @include lg {
+      font-size: 1em;
+    }
   }
   .modal-body {
     height: 60em;
-
+    @include lg {
+      height: 50em;
+    }
   }
 
 }
