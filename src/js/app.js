@@ -5,7 +5,8 @@ import '../scss/app.scss';
 
 const { GetRequest } = require('./data/requests');
 const { handleError } = require('./error');
-const LoadGallery = require('./components/gallery');
+const { LoadGallery } = require('./components/gallery');
+const { LoadCharacter } = require('./components/character');
 
 const proxyServerAddress = 'http://localhost:3007';
 
@@ -35,15 +36,10 @@ const init = async (url, cfg) => {
   const response = await GetRequest(url, cfg);
   populateStorage(response);
   LoadGallery(response);
+  LoadCharacter();
   return response;
 };
 
 init(proxyServerAddress, config)
   .then((r) => r)
   .catch((err) => handleError(err, 'Init Error: '));
-
-/**
- *
- * @param key
- */
-export const fetchLocalStorage = (key) => localStorage.getItem(key);

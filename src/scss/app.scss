@@ -22,14 +22,14 @@
 @import 'dirty/hacks';
 
 
-body {
+.background {
   background: black url("../images/content/stars.jpg");
   background-size: cover;
   color: $foreground-color;
   font-family: 'DINP-R', arial, serif;
 }
 
-header {
+.header {
   margin: 4em;
   background: url("../images/content/header.jpg") center no-repeat;
   padding: 60px 30px 30px;

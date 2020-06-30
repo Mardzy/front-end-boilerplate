@@ -34,7 +34,9 @@ const config = function(env, args) {
   return {
     entry: {
       app: './src/js/app.js',
-      gallery: './src/js/components.gallery.js',
+      gallery: './src/js/components/gallery.js',
+      character: './src/js/components/character.js',
+      helpers: './src/js/components/helpers/index.js',
     },
     output: {
       filename: 'js/[name].js',
@@ -100,15 +102,19 @@ const config = function(env, args) {
         notify: true,
         reloadDelay: 0,
       }),
-      // new HtmlWebpackPlugin({
-      //   filename: 'character.html',
-      //   template: path.resolve(__dirname, 'src', 'html', 'character.html'),
-      // }),
+      new HtmlWebpackPlugin({
+        inject: true,
+        hash: false,
+        filename: 'character.html',
+        template: path.resolve(__dirname, 'src', 'character.html'),
+        chunks: ['character']
+      }),
       new HtmlWebpackPlugin({
         inject: true,
         hash: false,
         filename: 'index.html',
         template: path.resolve(__dirname, 'src', 'index.html'),
+        chunks: ['app']
       }),
       new MiniCssExtractPlugin({
         filename: 'css/[name].css',
