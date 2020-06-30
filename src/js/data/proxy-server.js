@@ -3,9 +3,7 @@ const express = require('express');
 const {
   AddImagesToExistingData,
   GetAllCharacters,
-  GetCharacterImages,
-  GetPersonsName,
-  GetPlanetResidents
+  GetCharacterImages
 } = require('./helpers');
 
 const app = express();
@@ -23,15 +21,6 @@ app.get('/', async (req, res) => {
   const dataTransformed = AddImagesToExistingData(newPromise);
 
   res.send(dataTransformed);
-});
-
-app.get('/homeplanet', async (req, res) => {
-  const data = await GetPlanetResidents(req.url)
-    .then((r) => {
-      console.log('RES: ', r);
-      })
-    .catch();
-  res.send(data);
 });
 
 app.listen(port, () => console.log('Server running on port:', port));

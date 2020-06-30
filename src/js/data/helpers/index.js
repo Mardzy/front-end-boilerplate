@@ -37,7 +37,7 @@ const GetCharactersFromNextPages = async ({ count, results }) => {
 };
 
 const GetCharacterImages = async () => {
-  const res = await (STAR_WARS_API_W_IMG);
+  const res = await GetRequest(STAR_WARS_API_W_IMG);
   return res.map((item) => ({
     id: item.id, name: item.name, image: item.image, wiki: item.wiki,
   }));

@@ -1,12 +1,12 @@
 import 'regenerator-runtime/runtime';
 
-import 'bootstrap';
 import '../scss/app.scss';
 
 const { GetRequest } = require('./data/requests');
 const { handleError } = require('./error');
-const { LoadGallery } = require('./components/gallery');
-const { LoadCharacter } = require('./components/character');
+
+// const { LoadGallery } = require('./components/gallery');
+// const { LoadCharacter } = require('./components/character');
 
 const proxyServerAddress = 'http://localhost:3007';
 
@@ -35,8 +35,7 @@ const populateStorage = (data) => localStorage
 const init = async (url, cfg) => {
   const response = await GetRequest(url, cfg);
   populateStorage(response);
-  LoadGallery(response);
-  LoadCharacter();
+
   return response;
 };
 

@@ -34,9 +34,6 @@ const config = function(env, args) {
   return {
     entry: {
       app: './src/js/app.js',
-      gallery: './src/js/components/gallery.js',
-      character: './src/js/components/character.js',
-      helpers: './src/js/components/helpers/index.js',
     },
     output: {
       filename: 'js/[name].js',

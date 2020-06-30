@@ -21,7 +21,7 @@ const sendCharacterToLocalStorage = (name) => characters.filter((char) => {
 const characterGallery = getElementByClass('.gallery__row');
 
 characters = getCharacters();
-
+console.log('characters: ', characters);
 const normalizeName = (name) => (name.includes(' ') ? name.replace(/ /g, '_') : name);
 
 /**
