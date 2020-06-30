@@ -1,6 +1,6 @@
-const { localStorage } = window;
-
 import { backupImage } from './helpers';
+
+const { localStorage } = window;
 
 const character = [];
 
@@ -36,9 +36,8 @@ const characterCard = !!character && character.map(({
           <p class="card-text">Born: ${birth_year}</p>
           <p class="card-text">Gender: ${gender}</p>
           <p class="card-text">Height: ${height}cm</p>
-          <p class="card-text">Weight: ${mass}kg</p>
-          <a href=${wiki} class="btn btn-secondary" target="_blank">${name}'s wiki</a>         
-          <a href=${homeworld} class="btn btn-info">Homeworld</a>
+          <p class="card-text">Weight: ${mass}kg</p>         
+          <a href=${homeworld} class="btn btn-info" data-toggle="tooltip" data-placement="right" title="Click to see characters from my homeworld">Homeworld</a>
         </div>
       </div>`);
 

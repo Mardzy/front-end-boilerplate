@@ -64,9 +64,8 @@ const galleryLink = document.querySelector('.gallery__link');
 
 if (galleryLink) {
   document.addEventListener('click', (event) => {
-    event.preventDefault();
     localStorage.removeItem('character');
-    
+
     sendCharacterToLocalStorage(event.target.alt || event.target.id);
   });
 }

@@ -1,0 +1,32 @@
+.return-home {
+  padding: 5%;
+  font-size: 2em;
+  @include lg {
+    padding:  3%;
+    font-size: 1.5em;
+  }
+}
+
+.character {
+  margin-top: 5%;
+  @include lg {
+    margin-top: 0;
+  }
+  .card-title {
+    font-size: 5em;
+    @include lg {
+      font-size: 2em;
+    }
+  }
+  .card-text, .btn-info {
+    font-size: 3em;
+    @include lg {
+      font-size: 1.3em;
+    }
+  }
+  .card-body {
+    @include lg {
+      padding: 10px;
+    }
+  }
+}
