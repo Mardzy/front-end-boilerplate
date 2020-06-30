@@ -21,7 +21,7 @@ const characterContainer = getElementByClass('.character');
 /**
  * Fetch residents' names
  * @param residents
- * @returns {Promise<unknown[]>}
+ * @returns {Promise<[]>}
  */
 const getResidentsNames = async (residents) => {
   const promiseAll = await Promise.all(residents
@@ -38,7 +38,7 @@ const getResidentsNames = async (residents) => {
 /**
  * Fetch Planet Info
  * @param url
- * @returns {Promise<{planetName: *, residents: TAll[]}>}
+ * @returns {Promise<{planetName: *, residents: []}>}
  */
 const getPlanetInfo = async (url) => {
   const planet = await GetRequest(url, {});
@@ -49,7 +49,7 @@ const getPlanetInfo = async (url) => {
 
 /**
  * Create Card for each character
- * @type {boolean|unknown[]}
+ * @type {boolean|[]}
  */
 const characterCard = !!character && character.map(({
   birth_year,
@@ -108,7 +108,6 @@ const residentList = ({ residents }) => `<ul class="list-group modal-content">${
 const addListToModal = (planet) => {
   const modal = getElementByClass('.modal-body');
   const modalTitle = getElementByClass('.modal-title');
-  console.log('title: ', modalTitle);
   if (modal) {
     modal.innerHTML = residentList(planet);
     modalTitle.innerHTML = `Residents of Planet ${planet.planetName}`;
@@ -120,7 +119,6 @@ if (characterButton) {
   document.addEventListener('click', async (event) => {
     if (event.target === characterButton) {
       const planet = await getPlanetInfo(event.target.getAttribute('data-url'));
-      console.log('People: ', planet);
       addListToModal(planet);
     }
   });
