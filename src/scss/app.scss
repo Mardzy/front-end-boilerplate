@@ -24,8 +24,8 @@
 
 
 .background {
-  background: black url("../images/content/stars.jpg");
   background-size: cover;
+  background: black url("../images/content/stars.jpg") fixed;
   color: $foreground-color;
   font-family: 'DINP-R', arial, serif;
 }
