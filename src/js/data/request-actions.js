@@ -32,5 +32,6 @@ module.exports = {
   GetAttrWParams,
   GetCharacterImages,
   GetPlanetResidents,
-  GetPersonsName
+  GetPersonsName,
+  STAR_WARS_API_W_IMG
 };

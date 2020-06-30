@@ -1,5 +1,6 @@
 const { handleError } = require('../../error');
-const { GetAttribute, GetAttrWParams, GetPlanetResidents } = require('../request-actions');
+const { GetRequest } = require('../requests');
+const { GetAttribute, GetAttrWParams, STAR_WARS_API_W_IMG } = require('../request-actions');
 
 const AddImagesToExistingData = (promise) => {
   const primaryData = promise[0];
@@ -20,20 +21,6 @@ const GetAllCharacters = async (attribute) => GetAttribute(attribute)
   .then(GetCharactersFromNextPages)
   .catch((err) => handleError(err, 'All Characters Error: '));
 
-const AddResidentsFromHomeplanet = async (characters) => {
-  const newCharacters = characters;
-
-  for (let i = 0; i < characters.length; i++) {
-    const url = await GetPlanetResidents(characters[i].homeworld);
-    for (let j = 0; j < url.length; j++) {
-      newCharacters[j].homeplanetResidents = {};
-      newCharacters[j].homeplanetResidents.url = url;
-    }
-  }
-
-  return newCharacters;
-};
-
 const GetCharactersFromNextPages = async ({ count, results }) => {
   const allCharacters = results.map((i) => i);
   const totalPages = Math.ceil(count / 10);
@@ -45,9 +32,32 @@ const GetCharactersFromNextPages = async ({ count, results }) => {
       .catch((err) => handleError(err, 'Get Next Characters Error:'));
     nextCharacters.forEach((character) => allCharacters.push(character));
   }
-  // const charactersWithHomeplanetData = await AddResidentsFromHomeplanet(allCharacters);
 
   return allCharacters;
 };
 
-module.exports = { AddImagesToExistingData, GetAllCharacters, GetCharactersFromNextPages };
+const GetCharacterImages = async () => {
+  const res = await (STAR_WARS_API_W_IMG);
+  return res.map((item) => ({
+    id: item.id, name: item.name, image: item.image, wiki: item.wiki,
+  }));
+};
+
+const GetPlanetResidents = async (url) => {
+  const res = await GetRequest(url);
+  return res.residents;
+};
+
+const GetPersonsName = async (url) => {
+  const res = await GetRequest(url);
+  return res.name;
+};
+
+module.exports = {
+  AddImagesToExistingData,
+  GetAllCharacters,
+  GetCharactersFromNextPages,
+  GetCharacterImages,
+  GetPlanetResidents,
+  GetPersonsName
+};
