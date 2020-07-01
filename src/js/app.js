@@ -33,6 +33,7 @@ const populateStorage = (data) => localStorage
  */
 const init = async (url, cfg) => {
   const response = await GetRequest(url, cfg);
+  console.log('BE response: ', response);
   populateStorage(response);
   LoadGallery(response);
   LoadCharacter();
