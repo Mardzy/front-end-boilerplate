@@ -58,7 +58,7 @@ const normalizeName = (name) => (name.includes(' ') ? name.replace(/ /g, '_') : 
  * Create gallery items
  * @type {boolean|string[]}
  */
-const characterGalleryItems = !!characters.length && characters.map(({
+const characterGalleryItems =  characters && !!characters.length && characters.map(({
   image,
   name,
   wiki,
