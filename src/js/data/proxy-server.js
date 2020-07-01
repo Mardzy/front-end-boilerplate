@@ -16,6 +16,7 @@ app.use((req, res, next) => {
 
 app.get('/', async (req, res) => {
   const data = GetAllCharacters(req.query.attribute);
+  console.log('here');
   const dataWithImages = GetCharacterImages();
   const newPromise = await Promise.all([data, dataWithImages]);
   const dataTransformed = AddImagesToExistingData(newPromise);
