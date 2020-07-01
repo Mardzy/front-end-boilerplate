@@ -113,7 +113,7 @@ const config = function(env, args) {
         inject: true,
         hash: false,
         filename: 'index.html',
-        template: path.resolve(__dirname  , 'index.html'),
+        template: path.resolve(__dirname, 'index.html'),
         chunks: ['app']
       }),
       new MiniCssExtractPlugin({

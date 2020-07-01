@@ -14,7 +14,9 @@ export const LoadCharacter = () => {
 
 const getCharacterFromLocalStorage = JSON.parse(localStorage.getItem('character'));
 
-character.push(getCharacterFromLocalStorage);
+if (getCharacterFromLocalStorage) {
+  character.push(getCharacterFromLocalStorage);
+}
 
 const characterContainer = getElementByClass('.character');
 
@@ -51,7 +53,7 @@ const getPlanetInfo = async (url) => {
  * Create Card for each character
  * @type {boolean|[]}
  */
-const characterCard = !!character && character.map(({
+const characterCard = !!character.length && character.map(({
   birth_year,
   gender,
   height,

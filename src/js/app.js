@@ -5,9 +5,9 @@ import '../scss/app.scss';
 const { GetRequest } = require('./data/requests');
 const { handleError } = require('./error');
 const { LoadGallery } = require('./components/gallery');
-const { LoadCharacter } = require('./components/character');
 
-const DATA = require('./data/mock');
+const { DATA } = require('./data/mock/');
+
 
 const proxyServerAddress = 'http://localhost:3007';
 
@@ -35,10 +35,8 @@ const populateStorage = (data) => localStorage
  */
 const init = async (url, cfg) => {
   const response = await GetRequest(url, cfg);
-  console.log('BE response: ', response);
   populateStorage(response || DATA);
   LoadGallery(response || DATA);
-  LoadCharacter();
   return response || DATA;
 };
 

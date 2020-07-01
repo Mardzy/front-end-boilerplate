@@ -19,7 +19,9 @@ const handleSubmit = (event) => {
   event.preventDefault();
   searchValue = searchBar.elements.search.value;
 };
-searchBar.addEventListener('submit', handleSubmit);
+if (searchBar) {
+  searchBar.addEventListener('submit', handleSubmit);
+}
 
 /**
  * Fetch Characters from local storage
@@ -56,7 +58,7 @@ const normalizeName = (name) => (name.includes(' ') ? name.replace(/ /g, '_') : 
  * Create gallery items
  * @type {boolean|string[]}
  */
-const characterGalleryItems = !!characters && characters.map(({
+const characterGalleryItems = !!characters.length && characters.map(({
   image,
   name,
   wiki,
@@ -70,9 +72,9 @@ const characterGalleryItems = !!characters && characters.map(({
         </div>
       </div>`);
 
-if (characterGallery !== null) {
+if (characterGallery && characterGalleryItems) {
   characterGallery.innerHTML = characterGalleryItems !== null
-    ? characterGalleryItems && characterGalleryItems.join('') : [];
+    ? characterGalleryItems.join('') : [];
 }
 
 /**
