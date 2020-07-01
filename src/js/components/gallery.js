@@ -63,7 +63,7 @@ const characterGalleryItems = !!characters.length && characters.map(({
   name,
   wiki,
 }) => `<div class="card col-md-12 col-lg-4 gallery__col" style="width: 18rem;">
-        <a href="../../character.html" class="gallery__link" id=${normalizeName(name)}>
+        <a href="/dist/character.html" class="gallery__link" id=${normalizeName(name)}>
             <img src=${image || backupImage} class="card-img-top" alt=${normalizeName(name)}>      
         </a>
         <div class="card-body">
