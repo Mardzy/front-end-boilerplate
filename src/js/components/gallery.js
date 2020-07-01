@@ -72,7 +72,7 @@ const characterGalleryItems = !!characters && characters.map(({
 
 if (characterGallery !== null) {
   characterGallery.innerHTML = characterGalleryItems !== null
-    ? characterGalleryItems.join('') : [];
+    ? characterGalleryItems && characterGalleryItems.join('') : [];
 }
 
 /**
