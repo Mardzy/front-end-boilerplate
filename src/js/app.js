@@ -14,9 +14,7 @@ const { localStorage } = window;
 
 const attribute = 'people';
 
-const name = '';
-
-const config = { params: { attribute, name } };
+const config = { params: { attribute } };
 
 const localStorageName = 'star-wars-characters';
 
