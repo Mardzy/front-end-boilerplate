@@ -37,6 +37,8 @@ const config = function(env, args) {
       gallery: './src/js/components/gallery.js',
       character: './src/js/components/character.js',
       helpers: './src/js/components/helpers/index.js',
+      mock: './src/js/data/mock/index.js',
+      requests: './src/js/data/requests.js'
     },
     output: {
       filename: 'js/[name].js',

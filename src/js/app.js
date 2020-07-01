@@ -6,8 +6,7 @@ const { GetRequest } = require('./data/requests');
 const { handleError } = require('./error');
 const { LoadGallery } = require('./components/gallery');
 
-const { DATA } = require('./data/mock/');
-
+const { DATA } = require('./data/mock');
 
 const proxyServerAddress = 'http://localhost:3007';
 
