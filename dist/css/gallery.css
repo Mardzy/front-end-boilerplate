@@ -258,15 +258,11 @@ input {
       .card .btn {
         padding: 6px; } }
 
-.return-home, .all-chars-btn {
+.return-home {
   padding: 5%;
-  font-size: 2em;
-  background: none;
-  border: none; }
-  .return-home:focus, .all-chars-btn:focus {
-    outline: none; }
+  font-size: 2em; }
   @media (min-width: 992px) {
-    .return-home, .all-chars-btn {
+    .return-home {
       padding: 3%;
       font-size: 1.5em; } }
 

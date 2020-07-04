@@ -1,6 +1,11 @@
-.return-home {
+.return-home, .all-chars-btn {
   padding: 5%;
   font-size: 2em;
+  background: none;
+  border: none;
+  &:focus {
+    outline: none;
+  }
   @include lg {
     padding:  3%;
     font-size: 1.5em;
