@@ -43,8 +43,14 @@ const handleSubmit = (event) => {
   event.preventDefault();
   const { value } = searchBar.elements.search;
   const searchResult = characters.filter((char) => char.name.includes(value));
-  characters = addCharactersToLocalStorage(searchResult);
-  location.reload();
+  addCharactersToLocalStorage(searchResult);
+  characters = searchResult;
+  if (characters.length !== 0) {
+    location.reload();
+  } else {
+    localStorage.clear();
+  }
+
   return characters;
 };
 
@@ -92,17 +98,19 @@ dropdownMenu.addEventListener('click', handleDropdown);
 /**
  * Remove search bar and dropdown
  * Clear local storage
+ * @ todo error handling on search Bar
  */
+const header = getElementByClass('.header');
 if (searchBar && dropdown) {
   addEventListener('submit', handleSubmit);
   if (characters.length === 1) {
     searchBar.style.display = 'none';
     dropdown.style.display = 'none';
-    const header = getElementByClass('.header');
     const allCharButton = document.createElement('button');
-    header.parentNode.insertBefore(allCharButton, header.nextSibling);
     allCharButton.className = 'btn-link all-chars-btn';
     allCharButton.innerHTML = 'Get All Characters';
+
+    header.parentNode.insertBefore(allCharButton, header.nextSibling);
     addEventListener('click', clearLocalStorageReload);
   }
 }
