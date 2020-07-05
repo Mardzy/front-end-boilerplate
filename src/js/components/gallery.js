@@ -93,15 +93,16 @@ const normalizeName = (name) => (name.includes(' ') ? name.replace(' ', '_') : n
  */
 const characterGallery = getElementByClass('.gallery__row');
 
-const characterGalleryItems = () => {
-  let count = 0;
-  if (characters && characters.length >= 1) {
-    return characters.map(({
-      image,
-      name,
-      wiki,
-    }) => `<div class="card col-md-12 col-lg-4 gallery__col" style="width: 18rem;">
-        <a href="/character.html" class="gallery__link" id=${normalizeName(name)}>
+/**
+ * Create gallery items
+ * @type {boolean|string[]}
+ */
+const characterGalleryItems = characters && !!characters.length && characters.map(({
+  image,
+  name,
+  wiki,
+}) => `<div class="card col-md-12 col-lg-4 gallery__col" style="width: 18rem;">
+        <a href="/front-end-boilerplate/dist/character.html" class="gallery__link" id=${normalizeName(name)}>
             <img src=${image || backupImage} class="card-img-top" alt=${normalizeName(name)}>      
         </a>
         <div class="card-body">
@@ -109,16 +110,15 @@ const characterGalleryItems = () => {
           <a href=${wiki} class="btn btn-secondary" target="_blank">Wiki</a>         
         </div>
       </div>`);
-  } else {
-    count++;
-    // location.reload();
-    return count > 0 ? characterGalleryItems() : null;
-  }
-};
 
-if (characterGallery && characterGalleryItems()) {
-  characterGallery.innerHTML = !!characterGalleryItems() !== null
-    ? characterGalleryItems().join('') : [];
+if (characterGallery && characterGalleryItems) {
+  characterGallery.innerHTML = characterGalleryItems && characterGalleryItems.join('') ? characterGalleryItems.join('') : [];
+} else {
+  (() => {
+    setTimeout(function() {
+      location.reload();
+    }, 2000);
+  })();
 }
 
 /**
