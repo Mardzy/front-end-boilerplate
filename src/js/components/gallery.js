@@ -3,7 +3,7 @@ import { GetRequest } from '../data/requests';
 import { DATA } from '../data/mock';
 
 const { localStorage, location } = window;
-const { addEventListener, createElement } = document;
+const { addEventListener } = document;
 
 const proxyServerAddress = 'http://localhost:3007';
 const starWarsCharacters = 'characters';
@@ -27,7 +27,6 @@ const addCharactersToLocalStorage = (data) => localStorage.setItem(starWarsChara
     const response = await GetRequest(url, config);
     addCharactersToLocalStorage(response || DATA);
     characters = response;
-    console.log('char2: ', characters);
   }
   return characters;
 })(proxyServerAddress);
@@ -101,10 +100,10 @@ const characterGalleryItems = characters && !!characters.length && characters.ma
   image,
   name,
   wiki,
-}) => `<div class="card col-md-12 col-lg-4 gallery__col" style="width: 18rem;">
+}) => `<div class="card col-md-12 col-lg-4 gallery__col">
 <!-- prod char link <a href="/front-end-boilerplate/dist/character.html" class="gallery__link" id=${normalizeName(name)}>-->
-        <a href="./character.html" class="gallery__link" id=${normalizeName(name)}>
-            <img src=${image || backupImage} class="card-img-top" alt=${normalizeName(name)}>      
+        <a href="/character.html" class="gallery__link" id=${normalizeName(name)}>
+            <img  src=${image || backupImage} class="card-img" alt=${normalizeName(name)}>      
         </a>
         <div class="card-body">
           <h2 class="card-title">${name}</h2>
@@ -122,23 +121,19 @@ if (characterGallery && characterGalleryItems) {
   })();
 }
 
+const refreshCharacterInLocalStorage = ({ target }) => {
+  if (target.className === 'card-img') {
+    localStorage.removeItem('character');
+
+    sendCharacterToLocalStorage(target.alt);
+  }
+};
+
 /**
  * Handles click event on gallery link
  * @param event
  */
 const galleryLink = getElementByClass('.gallery__link');
 if (galleryLink) {
-  addEventListener('click', (event) => {
-    localStorage.removeItem('character');
-
-    sendCharacterToLocalStorage(event.target.alt || event.target.id);
-  });
+  addEventListener('click', refreshCharacterInLocalStorage);
 }
-
-function onCharacterUpdate (characterLength, gallerInnerHtml) {
-  if(characters.length === 82 && characterGallery.innerHTML === null) {
-    location.reload();
-  }
-}
-
-onCharacterUpdate(characters.length)

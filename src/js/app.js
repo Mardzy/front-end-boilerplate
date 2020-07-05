@@ -1,6 +1,4 @@
 import 'bootstrap';
-import 'jquery';
-import 'popper.js';
 import 'regenerator-runtime/runtime';
 
 import './components/gallery';

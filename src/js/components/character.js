@@ -63,7 +63,7 @@ const characterCard = !!character.length && character.map(({
   mass,
   name
 }) => id && `<div class="card col character__col" >
-  <img id=${id} src=${image || backupImage} class="card-img-top" alt=${name}>      
+  <img id=${id} src=${image || backupImage} class="card-img" alt=${name}>      
   <div class="card-body">
     <h2 class="card-title">${name}</h2>
     <p class="card-text">Born: ${birth_year}</p>
@@ -111,6 +111,7 @@ const addListToModal = (planet) => {
   const modal = getElementByClass('.modal-body');
   const modalTitle = getElementByClass('.modal-title');
   if (modal) {
+    console.log('here: ');
     modal.innerHTML = residentList(planet);
     modalTitle.innerHTML = `Residents of Planet ${planet.planetName}`;
   }
@@ -120,7 +121,9 @@ const characterButton = getElementByClass('.character__button');
 if (characterButton) {
   document.addEventListener('click', async (event) => {
     if (event.target === characterButton) {
+      console.log('target: ', event.target);
       const planet = await getPlanetInfo(event.target.getAttribute('data-url'));
+      console.log('planet: ', planet);
       addListToModal(planet);
     }
   });

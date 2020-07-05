@@ -32,7 +32,7 @@
     letter-spacing: -1px;
     color: #D0DC32;
   }
-  .card-img-top {
+  .card-img {
     object-fit: scale-down;
     object-position: 50% 0;
     width: 100%;
@@ -60,6 +60,7 @@
     }
 
   };
-
-
+  .gallery__link {
+    z-index: 99;
+  }
 }
