@@ -272,6 +272,13 @@ input {
       padding: 3%;
       font-size: 1.5em; } }
 
+#dropdownMenu2 {
+  margin: 5%;
+  font-size: 2em; }
+
+.dropdown-item {
+  font-size: 2em; }
+
 .character {
   margin-top: 5%; }
   @media (min-width: 992px) {

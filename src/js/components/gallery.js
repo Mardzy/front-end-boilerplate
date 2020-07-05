@@ -48,6 +48,11 @@ const handleSubmit = (event) => {
   return characters;
 };
 
+/**
+ * Remove 'characters' item from local storage
+ * reload page
+ * @param target
+ */
 const clearLocalStorageReload = ({ target }) => {
   if (target.className === 'btn-link all-chars-btn') {
     localStorage.removeItem(LOCAL_STORAGE_CHARACTERS);
@@ -56,10 +61,43 @@ const clearLocalStorageReload = ({ target }) => {
   }
 };
 
-if (searchBar) {
+/**
+ * Handle events in dropdown menu
+ * @todo add more cases to handle other character properties
+ * @param target
+ */
+const handleDropdown = ({ target }) => {
+  if (target.className === 'dropdown-item') {
+    let sortedCharacters;
+    const charProp = target.innerHTML.toLowerCase().split(' ')[0];
+    switch (charProp) {
+      case 'name':
+        sortedCharacters = characters.sort((a, b) => (a[charProp] > b[charProp] ? 1 : -1));
+        break;
+      case 'name-descending':
+        sortedCharacters = characters.sort((a, b) => (a[charProp] < b[charProp] ? 1 : -1));
+        break;
+      default:
+        console.log('default');
+    }
+    characters = sortedCharacters;
+    localStorage.setItem(LOCAL_STORAGE_CHARACTERS, JSON.stringify(sortedCharacters));
+    location.reload();
+  }
+};
+const dropdownMenu = getElementByClass('.dropdown-menu');
+const dropdown = getElementByClass('.dropdown');
+dropdownMenu.addEventListener('click', handleDropdown);
+
+/**
+ * Remove search bar and dropdown
+ * Clear local storage
+ */
+if (searchBar && dropdown) {
   addEventListener('submit', handleSubmit);
   if (characters.length === 1) {
     searchBar.style.display = 'none';
+    dropdown.style.display = 'none';
     const header = getElementByClass('.header');
     const allCharButton = document.createElement('button');
     header.parentNode.insertBefore(allCharButton, header.nextSibling);
@@ -113,6 +151,9 @@ const characterGalleryItems = characters && !!characters.length && characters.ma
         </div>
       </div>`);
 
+/**
+ * Load characters into gallery
+ */
 if (characterGallery && characterGalleryItems) {
   characterGallery.innerHTML = characterGalleryItems && characterGalleryItems.join('') ? characterGalleryItems.join('') : [];
 } else {
@@ -123,6 +164,10 @@ if (characterGallery && characterGalleryItems) {
   })();
 }
 
+/**
+ * Send clicked character to Local storage
+ * @param target
+ */
 const refreshCharacterInLocalStorage = ({ target }) => {
   if (target.className === 'card-img') {
     localStorage.removeItem('character');

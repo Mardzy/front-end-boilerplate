@@ -78,7 +78,6 @@ const residentListItems = (residents) => residents.map(({ name }) => `<li class=
 const residentList = ({ residents }) => `<ul class="list-group modal-content">${residentListItems(residents)}</ul>`;
 
 const addListToModal = (planet) => {
-  console.log('planet: ', planet);
   const modal = getElementByClass('.modal-body');
   const modalTitle = getElementByClass('.modal-title');
   if (modal) {
