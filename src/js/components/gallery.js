@@ -15,6 +15,13 @@ let characters = [];
  */
 const addCharactersToLocalStorage = (data) => localStorage.setItem(starWarsCharacters, JSON.stringify(data));
 
+
+/*
+const data = GetAllCharacters(req.query.attribute);
+const dataWithImages = GetCharacterImages();
+const newPromise = await Promise.all([data, dataWithImages]);
+const dataTransformed = AddImagesToExistingData(newPromise);
+*/
 /**
  * Fetch characters && set characters in local storage
  */

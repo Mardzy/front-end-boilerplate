@@ -18,8 +18,6 @@ if (getCharacterFromLocalStorage) {
   character.push(getCharacterFromLocalStorage);
 }
 
-const characterContainer = getElementByClass('.character');
-
 /**
  * Fetch residents' names
  * @param residents
@@ -50,9 +48,10 @@ const getPlanetInfo = async (url) => {
 };
 
 /**
- * Create Card for each character
+ * Create dynamic Card for a character
  * @type {boolean|[]}
  */
+const characterContainer = getElementByClass('.character');
 const characterCard = !!character.length && character.map(({
   birth_year,
   gender,
@@ -111,19 +110,22 @@ const addListToModal = (planet) => {
   const modal = getElementByClass('.modal-body');
   const modalTitle = getElementByClass('.modal-title');
   if (modal) {
-    console.log('here: ');
     modal.innerHTML = residentList(planet);
     modalTitle.innerHTML = `Residents of Planet ${planet.planetName}`;
   }
 };
 
+/**
+ * Handle "Homeworld" button click
+ * gets planet info and populates list of residents from
+ * the characters' home world
+ * @return {modal}
+ */
 const characterButton = getElementByClass('.character__button');
 if (characterButton) {
   document.addEventListener('click', async (event) => {
     if (event.target === characterButton) {
-      console.log('target: ', event.target);
       const planet = await getPlanetInfo(event.target.getAttribute('data-url'));
-      console.log('planet: ', planet);
       addListToModal(planet);
     }
   });
