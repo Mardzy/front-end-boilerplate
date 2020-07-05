@@ -1,10 +1,6 @@
 const express = require('express');
 
-const {
-  AddImagesToExistingData,
-  GetAllCharacters,
-  GetCharacterImages
-} = require('./helpers');
+const { GetRequest } = require('./requests');
 
 const app = express();
 const port = 3007;
@@ -15,12 +11,10 @@ app.use((req, res, next) => {
 });
 
 app.get('/', async (req, res) => {
-  const data = GetAllCharacters(req.query.attribute);
-  const dataWithImages = GetCharacterImages();
-  const newPromise = await Promise.all([data, dataWithImages]);
-  const dataTransformed = AddImagesToExistingData(newPromise);
+  const { config, url } = req.query;
+  const response = await GetRequest(url, config);
 
-  res.send(dataTransformed);
+  res.send(response);
 });
 
 app.listen(port, () => console.log('Server running on port:', port));

@@ -1,7 +1,7 @@
 import 'regenerator-runtime/runtime';
 
 import { backupImage, getElementByClass } from './helpers';
-import { GetRequest } from '../data/requests';
+import { GetPlanetInfo } from '../data/helpers/character';
 
 const { localStorage } = window;
 
@@ -17,35 +17,6 @@ const getCharacterFromLocalStorage = JSON.parse(localStorage.getItem('character'
 if (getCharacterFromLocalStorage) {
   character.push(getCharacterFromLocalStorage);
 }
-
-/**
- * Fetch residents' names
- * @param residents
- * @returns {Promise<[]>}
- */
-const getResidentsNames = async (residents) => {
-  const promiseAll = await Promise.all(residents
-    .map(async (resident) => {
-      const charName = await GetRequest(resident, {})
-        .then((res) => res.name)
-        .catch((err) => console.log('Err: ', err));
-      return { url: resident, name: charName };
-    }));
-
-  return promiseAll;
-};
-
-/**
- * Fetch Planet Info
- * @param url
- * @returns {Promise<{planetName: *, residents: []}>}
- */
-const getPlanetInfo = async (url) => {
-  const planet = await GetRequest(url, {});
-  const residents = await getResidentsNames(planet.residents);
-
-  return { planetName: planet.name, residents };
-};
 
 /**
  * Create dynamic Card for a character
@@ -107,6 +78,7 @@ const residentListItems = (residents) => residents.map(({ name }) => `<li class=
 const residentList = ({ residents }) => `<ul class="list-group modal-content">${residentListItems(residents)}</ul>`;
 
 const addListToModal = (planet) => {
+  console.log('planet: ', planet);
   const modal = getElementByClass('.modal-body');
   const modalTitle = getElementByClass('.modal-title');
   if (modal) {
@@ -122,11 +94,12 @@ const addListToModal = (planet) => {
  * @return {modal}
  */
 const characterButton = getElementByClass('.character__button');
+const handleClick = async ({ target }) => {
+  if (target === characterButton) {
+    const planet = await GetPlanetInfo(target.getAttribute('data-url'));
+    addListToModal(planet);
+  }
+};
 if (characterButton) {
-  document.addEventListener('click', async (event) => {
-    if (event.target === characterButton) {
-      const planet = await getPlanetInfo(event.target.getAttribute('data-url'));
-      addListToModal(planet);
-    }
-  });
+  document.addEventListener('click', handleClick);
 }

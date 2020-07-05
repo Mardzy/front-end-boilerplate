@@ -415,7 +415,7 @@ eval("// shim for using process in browser\nvar process = module.exports = {};\n
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n\nvar _require = __webpack_require__(/*! ../error */ \"./src/js/error/index.js\"),\n    handleError = _require.handleError;\n\nvar GetRequest = function GetRequest(url, config) {\n  return axios.get(url, config).then(function (response) {\n    return response.data;\n  })[\"catch\"](function (err) {\n    return handleError(err, 'Get Request Error: ');\n  });\n};\n\nmodule.exports = {\n  GetRequest: GetRequest\n};\n\n//# sourceURL=webpack:///./src/js/data/requests.js?");
+eval("var axios = __webpack_require__(/*! axios */ \"./node_modules/axios/index.js\");\n\nvar _require = __webpack_require__(/*! ../error */ \"./src/js/error/index.js\"),\n    handleError = _require.handleError;\n/**\n * Axios get request\n * @param url\n * @param config\n * @return {Promise<T | void>}\n * @constructor\n */\n\n\nvar GetRequest = function GetRequest(url, config) {\n  return axios.get(url, config).then(function (response) {\n    return response.data;\n  })[\"catch\"](function (err) {\n    return handleError(err, 'Axios GET Request Error: ');\n  });\n};\n/**\n * space for future requests\n */\n\n\nmodule.exports = {\n  GetRequest: GetRequest\n};\n\n//# sourceURL=webpack:///./src/js/data/requests.js?");
 
 /***/ }),
 

@@ -1,42 +1,38 @@
 import { backupImage, getElementByClass } from './helpers';
-import { GetRequest } from '../data/requests';
-import { DATA } from '../data/mock';
+import { GetAllCharacters, GetCharacterImages, GetCharactersFromNextPages, AddImagesToExistingData } from '../data/helpers/gallery';
 
 const { localStorage, location } = window;
 const { addEventListener } = document;
 
-const proxyServerAddress = 'http://localhost:3007';
-const starWarsCharacters = 'characters';
+const LOCAL_STORAGE_CHARACTERS = 'characters';
 let characters = [];
 
 /**
  * Sends data to local storage
  * @param data
  */
-const addCharactersToLocalStorage = (data) => localStorage.setItem(starWarsCharacters, JSON.stringify(data));
+const addCharactersToLocalStorage = (data) => localStorage.setItem(LOCAL_STORAGE_CHARACTERS, JSON.stringify(data));
 
-
-/*
-const data = GetAllCharacters(req.query.attribute);
-const dataWithImages = GetCharacterImages();
-const newPromise = await Promise.all([data, dataWithImages]);
-const dataTransformed = AddImagesToExistingData(newPromise);
-*/
 /**
  * Fetch characters && set characters in local storage
  */
-(async (url) => {
-  if (starWarsCharacters in localStorage) {
-    characters = JSON.parse(localStorage.getItem(starWarsCharacters));
-  } else {
-    const attribute = 'people';
-    const config = { params: { attribute } };
-    const response = await GetRequest(url, config);
-    addCharactersToLocalStorage(response || DATA);
-    characters = response;
-  }
-  return characters;
-})(proxyServerAddress);
+if (characters.length !== 82) {
+  (async () => {
+    if (LOCAL_STORAGE_CHARACTERS in localStorage) {
+      characters = JSON.parse(localStorage.getItem(LOCAL_STORAGE_CHARACTERS));
+    } else {
+      const attribute = 'people';
+      const chars = GetAllCharacters(attribute);
+      const charsWithImages = GetCharacterImages();
+      const allChars = await Promise.all([chars, charsWithImages]);
+      const response = AddImagesToExistingData(allChars);
+
+      addCharactersToLocalStorage(response);
+      characters = response;
+    }
+    return characters;
+  })();
+}
 
 /**
  * Handle search bar submit
@@ -54,8 +50,7 @@ const handleSubmit = (event) => {
 
 const clearLocalStorageReload = ({ target }) => {
   if (target.className === 'btn-link all-chars-btn') {
-    console.log(target, 'clicked');
-    localStorage.removeItem(starWarsCharacters);
+    localStorage.removeItem(LOCAL_STORAGE_CHARACTERS);
     location.reload();
     return console.log('clicked');
   }
