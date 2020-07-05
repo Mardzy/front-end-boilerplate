@@ -275,6 +275,10 @@ input {
 #dropdownMenu2 {
   margin: 5%;
   font-size: 2em; }
+  @media (min-width: 992px) {
+    #dropdownMenu2 {
+      margin: 0 2%;
+      font-size: 1.5em; } }
 
 .dropdown-item {
   font-size: 2em; }

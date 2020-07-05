@@ -34,12 +34,11 @@ const config = function(env, args) {
   return {
     entry: {
       app: './src/js/app.js',
-      error: './src/js/error/gallery.js',
+      error: './src/js/error/index.js',
       gallery: './src/js/components/gallery.js',
       character: './src/js/components/character.js',
-      helpers: './src/js/components/helpers/gallery.js',
-      dataHelpers: './src/js/data/helpers/gallery.js',
-      mock: './src/js/data/mock/gallery.js',
+      charHelpers: './src/js/data/helpers/character.js',
+      galleryHelpers: './src/js/data/helpers/gallery.js',
       requests: './src/js/data/requests.js',
     },
     output: {

@@ -15,6 +15,10 @@
 #dropdownMenu2 {
   margin: 5%;
   font-size: 2em;
+  @include lg {
+    margin: 0 2% ;
+    font-size: 1.5em;
+  }
 }
 
 .dropdown-item {
