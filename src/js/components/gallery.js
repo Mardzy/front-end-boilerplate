@@ -1,5 +1,5 @@
 import { backupImage, getElementByClass } from './helpers';
-import { GetAllCharacters, GetCharacterImages, GetCharactersFromNextPages, AddImagesToExistingData } from '../data/helpers/gallery';
+import { GetAllCharacters, GetCharacterImages, AddImagesToExistingData } from '../data/helpers/gallery';
 
 const { localStorage, location } = window;
 const { addEventListener } = document;

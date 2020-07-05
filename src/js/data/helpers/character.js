@@ -1,5 +1,5 @@
 const { GetRequest } = require('../requests');
-const { ATTRIBUTE_URL } = require('./constants');
+const { PROXY_SERVER_ADDRESS } = require('./constants');
 
 /**
  * Fetch residents' names
@@ -7,15 +7,13 @@ const { ATTRIBUTE_URL } = require('./constants');
  * @returns {Promise<[]>}
  */
 const GetResidentsNames = async (residents) => {
-  const PROXY_SERVER_ADDRESS = new URL('http://localhost:3007');
-  PROXY_SERVER_ADDRESS.searchParams.delete('url');
-
   const promiseAll = await Promise.all(residents
     .map(async (resident) => {
-      PROXY_SERVER_ADDRESS.searchParams.append('url', resident);
-      const charName = await GetRequest(PROXY_SERVER_ADDRESS.href)
+      const url = PROXY_SERVER_ADDRESS + resident;
+      const charName = await GetRequest(url)
         .then((res) => res.name)
         .catch((err) => console.log('Err: ', err));
+
       return { url: resident, name: charName };
     }));
 
@@ -28,11 +26,9 @@ const GetResidentsNames = async (residents) => {
  * @returns {Promise<{planetName: *, residents: []}>}
  */
 export const GetPlanetInfo = async (url) => {
-  const PROXY_SERVER_ADDRESS = new URL('http://localhost:3007');
-  PROXY_SERVER_ADDRESS.searchParams.append('url', url);
-
-  const planet = await GetRequest(PROXY_SERVER_ADDRESS.href);
+  const URL = PROXY_SERVER_ADDRESS + url;
+  const planet = await GetRequest(URL);
   const residents = await GetResidentsNames(planet.residents);
-  console.log('res: ', residents);
+
   return { planetName: planet.name, residents };
 };

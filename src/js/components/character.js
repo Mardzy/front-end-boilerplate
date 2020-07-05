@@ -95,7 +95,7 @@ const addListToModal = (planet) => {
  */
 const characterButton = getElementByClass('.character__button');
 const handleClick = async ({ target }) => {
-  if (target === characterButton) {
+  if (target.className === 'btn btn-info character__button') {
     const planet = await GetPlanetInfo(target.getAttribute('data-url'));
     addListToModal(planet);
   }
