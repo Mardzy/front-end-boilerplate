@@ -36,6 +36,7 @@ if (characters.length !== 82) {
 
 /**
  * Handle search bar submit
+ * @ todo error handling on search Bar
  * @param event
  */
 const searchBar = getElementByClass('.search-bar');
@@ -98,7 +99,6 @@ dropdownMenu.addEventListener('click', handleDropdown);
 /**
  * Remove search bar and dropdown
  * Clear local storage
- * @ todo error handling on search Bar
  */
 const header = getElementByClass('.header');
 if (searchBar && dropdown) {
@@ -109,8 +109,9 @@ if (searchBar && dropdown) {
     const allCharButton = document.createElement('button');
     allCharButton.className = 'btn-link all-chars-btn';
     allCharButton.innerHTML = 'Get All Characters';
-
-    header.parentNode.insertBefore(allCharButton, header.nextSibling);
+    if (header.parentNode.childNodes[4].textContent !== 'Get All Characters') {
+      header.parentNode.insertBefore(allCharButton, header.nextSibling);
+    }
     addEventListener('click', clearLocalStorageReload);
   }
 }
