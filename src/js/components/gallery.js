@@ -150,8 +150,8 @@ const characterGalleryItems = characters && !!characters.length && characters.ma
   name,
   wiki,
 }) => `<div class="card col-md-12 col-lg-4 gallery__col">
-<!-- prod char link <a href="/front-end-boilerplate/dist/character.html" class="gallery__link" id=${normalizeName(name)}>-->
-        <a href="/character.html" class="gallery__link" id=${normalizeName(name)}>
+<!-- prod char link <a href="/character.html" class="gallery__link" id=${normalizeName(name)}>-->
+        <a href="./character.html" class="gallery__link" id=${normalizeName(name)}>
             <img  src=${image || backupImage} class="card-img" alt=${normalizeName(name)}>      
         </a>
         <div class="card-body">
